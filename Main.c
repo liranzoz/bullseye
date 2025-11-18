@@ -9,6 +9,7 @@
 int make_rand_num();
 int get_p(char arr1[], char arr2[]);
 int get_b(char arr1[], char arr2[]);
+int valid_sys_rand(char arr[]);
 
 int main() {
 	srand(time(0));
@@ -16,12 +17,7 @@ int main() {
 	char sys_rand [5];
 	char user_choice[ARR_LEN];	
 
-	for (int i = 0; i < 4; i++) {
-				rand_num = make_rand_num();
-				sys_rand[i] = rand_num + '0';
-			}
-	sys_rand[4] = '\0';
-
+	valid_sys_rand(sys_rand);
 
 	for (int round = 0; round <= MAX_ROUNDS; round++)
 	{
@@ -29,7 +25,12 @@ int main() {
 		fgets(user_choice, ARR_LEN, stdin);
 		user_choice[strlen(user_choice) - 1] = '\0';
 
+		p = get_p(sys_rand, user_choice);
+		b = get_b(sys_rand, user_choice);
+		
+
 		printf("Your number: %s\nSystem number: %s\n\n", user_choice, sys_rand);
+		printf("Pgia:%d\nbool:%d\n\n", p, b);
 	}
 	return 0;
 }
@@ -42,7 +43,7 @@ int make_rand_num()
 
 int get_p(char arr1[], char arr2[])
 {
-	int p;
+	int p = 0;
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++) {
@@ -57,7 +58,7 @@ int get_p(char arr1[], char arr2[])
 
 int get_b(char arr1[], char arr2[])
 {
-	int b;
+	int b = 0;
 	for (int i = 0; i < 4; i++)
 	{
 		if (arr1[i] == arr2[i]) {
@@ -66,3 +67,26 @@ int get_b(char arr1[], char arr2[])
 	}
 	return b;
 }
+
+int valid_sys_rand(char arr[]) {
+	for (int i = 0; i < 4; i++) {
+		arr[i] = make_rand_num() + '0';
+	}
+	arr[4] = '\0';
+
+	bool flag = true;
+	while (flag) {
+		flag = false;
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = i +1; j < 5; j++) {
+				if (arr[i] == arr[j]) {
+					arr[j] = make_rand_num();
+					flag = true;
+				}
+			}
+		}
+		return 0;
+	}
+}
+	
