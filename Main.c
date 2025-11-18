@@ -16,21 +16,27 @@ int main() {
 	int p, b, rand_num;
 	char sys_rand [5];
 	char user_choice[ARR_LEN];	
-
+	int round;
 	valid_sys_rand(sys_rand);
 
-	for (int round = 0; round <= MAX_ROUNDS; round++)
+	for (round = 1; round <= MAX_ROUNDS; round++)
 	{
-		printf("Enter 4 number (ex: 1234): ");
+		printf("(Round %d/10) Enter 4 number (ex: 1234): ", round);
 		fgets(user_choice, ARR_LEN, stdin);
 		user_choice[strlen(user_choice) - 1] = '\0';
 
 		p = get_p(sys_rand, user_choice);
 		b = get_b(sys_rand, user_choice);
-		
-
-		printf("Your number: %s\nSystem number: %s\n\n", user_choice, sys_rand);
+	
+		if (b == 4) {
+			printf("You Won!\nThe system number was: %s",sys_rand);
+			break;
+		}
 		printf("Pgia:%d\nbool:%d\n\n", p, b);
+	}
+	if (b!= 4)
+	{
+		printf("You Lost :(\nSystem number was: %s\n\n", sys_rand);
 	}
 	return 0;
 }
@@ -81,7 +87,7 @@ int valid_sys_rand(char arr[]) {
 		{
 			for (int j = i +1; j < 5; j++) {
 				if (arr[i] == arr[j]) {
-					arr[j] = make_rand_num();
+					arr[j] = make_rand_num() + '0';
 					flag = true;
 				}
 			}
