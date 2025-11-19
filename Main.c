@@ -11,6 +11,10 @@ int get_p(char arr1[], char arr2[]);
 int get_b(char arr1[], char arr2[]);
 int valid_sys_rand(char arr[]);
 
+//Submitters:
+//Liran Zozulya 212343214
+//Nevo Glanz 314707738
+
 int main() {
 	srand(time(0));
 	int p, b, rand_num;
